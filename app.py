@@ -217,12 +217,11 @@ def remove_emojis(text):
 
 
 def preprocess_text(text):
+    # Match periods, question marks, or exclamation marks followed by a space or end of string
+    text = re.sub(r'(?<!\b\d)([.!?])\s+(?=[A-Z0-9])', r'\1\n\n', text)
+    
     # Remove emojis and convert to lowercase
     text = remove_emojis(text.lower())
-    
-    # Add line breaks after paragraphs
-    # Match periods, question marks, or exclamation marks followed by a space or end of string
-    text = re.sub(r'([.!?])\s+', r'\1\n\n', text)
     
     # Ensure proper spacing between paragraphs (remove extra line breaks)
     text = re.sub(r'\n{3,}', '\n\n', text)
